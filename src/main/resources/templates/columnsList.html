@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${tableName + '-columns'}"></title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>列的名称</th>
+        <th>列的备注</th>
+        <th>数据库 列类型</th>
+        <th>属性 列类型</th>
+        <th>属性名(大驼峰)</th>
+        <th>属性名(小驼峰)</th>
+    </tr>
+    <tr  th:each="item : ${lists}" >
+        <td th:text="${item.columnName}"></td>
+        <td th:text="${item.comments}"></td>
+        <td th:text="${item.dataType}"></td>
+        <td th:text="${item.attrType}"></td>
+        <th th:text="${item.attrNameUpperCamelCase}"></th>
+        <th th:text="${item.attrNameLowerCamelCase}"></th>
+    </tr>
+</table>
+</body>
+</html>

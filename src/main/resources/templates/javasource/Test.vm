@@ -1,0 +1,52 @@
+package [(${entityPackage})];
+
+
+import java.math.BigDecimal;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+* [(${tableConfig.comments})]
+*
+* @author [(${author})]
+* @email [(${email})]
+* @date [(${datetime})]
+*/
+public class [(${tableConfig.classNameUpperCamelCase})] implements Serializable {
+private static final long serialVersionUID = 1L;
+
+    [# th:each="column : ${tableConfig.columns}"]
+    /**
+    * [(${column.comments})]
+    */
+    private [(${column.attrType})] [(${column.attrNameLowerCamelCase})];
+
+    [/]
+    [# th:each="column : ${tableConfig.columns}"]
+    public [(${column.attrType})] get[(${column.attrNameUpperCamelCase})]() {
+        return [(${column.attrNameLowerCamelCase})];
+    }
+
+    public void set[(${column.attrNameUpperCamelCase})]([(${column.attrType})] [(${column.attrNameLowerCamelCase})]) {
+        this.[(${column.attrNameLowerCamelCase})] = [(${column.attrNameLowerCamelCase})];
+    }
+    [/]
+
+    public [(${tableConfig.classNameUpperCamelCase})](){
+    }
+    public [(${tableConfig.classNameUpperCamelCase})]([# th:each="column,columnStat:${tableConfig.columns}"][(${column.attrType})] [(${column.attrNameLowerCamelCase})][# th:if="!${columnStat.last}"], [/][/]){
+        [# th:each="column,columnStat:${tableConfig.columns}"]
+            this.[(${column.attrNameLowerCamelCase})] = [(${column.attrNameLowerCamelCase})];
+        [/]
+    }
+
+
+    @Override
+    public String toString() {
+        return "[(${tableConfig.classNameUpperCamelCase})]{" +
+        [# th:each="column,columnStat:${tableConfig.columns}"]
+            "[# th:if="!${columnStat.first}"], [/][(${column.attrNameLowerCamelCase})]='"+ [(${column.attrNameLowerCamelCase})] + "\'"+
+        [/]
+        "}";
+    }
+}

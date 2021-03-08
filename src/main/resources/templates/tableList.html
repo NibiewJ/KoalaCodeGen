@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>tableList</title>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <th>表的名称</th>
+        <th>表的备注</th>
+        <th>表的主键</th>
+        <th>表列s</th>
+        <th>类名(大驼峰)</th>
+        <th>类名(小驼峰)</th>
+        <th>操作</th>
+    </tr>
+    <tr  th:each="item : ${lists}" >
+        <td th:text="${item.tableName}"></td>
+        <td th:text="${item.comments}"></td>
+        <td th:text="${item.pk}"></td>
+        <td>
+            <a th:href="@{'columnsList/' + ${item.tableName}}">查看</a>
+        </td>
+        <td th:text="${item.classNameUpperCamelCase}"></td>
+        <td th:text="${item.classNameLowerCamelCase}"></td>
+        <td>
+            <a href="javascript:;" th:onclick="javaBean([[${item.tableName}]]);">Java Bean</a>
+            <a href="javascript:;" th:onclick="mybatisInterface([[${item.tableName}]]);">Mybatis Interface</a>
+            <a href="javascript:;" th:onclick="mybatisXml([[${item.tableName}]]);">Mybatis Xml</a>
+        </td>
+    </tr>
+</table>
+<script>
+    function javaBean(tableName) {
+        window.location.href = '/generatorTableJavaBean/'+ tableName;
+    }
+    function mybatisInterface(tableName) {
+        alert(tableName + "mybatisInterface");
+    }
+    function mybatisXml(tableName) {
+        alert(tableName + "mybatisXml");
+    }
+</script>
+</body>
+</html>
